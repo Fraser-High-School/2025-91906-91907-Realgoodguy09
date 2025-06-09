@@ -11,19 +11,19 @@ class quiz():
         Quiz program GUI
         """
 
-        self.quiz_frame = Frame(padx=80, pady=100)
+        self.quiz_frame = Frame(padx=30, pady=30)
         self.quiz_frame.grid()
 
     
         self.quiz_heading = Label(self.quiz_frame,
                                 text="Quiz",
-                                font=("Arial","16","bold")
+                                font=("Arial","24","bold")
                                 )
-        self.quiz_heading.grid(row=1)
+        self.quiz_heading.grid(row=0)
 
         # Play, help and history buttons
         self.button_frame = Frame(self.quiz_frame)
-        self.button_frame.grid(row=4)
+        self.button_frame.grid(row=6)
 
         # button list (button text | bg colour | command | row | column)
         button_details_list = [
@@ -39,8 +39,8 @@ class quiz():
             self.make_button = Button(self.button_frame,
                                     text=item[0], bg=item[1],
                                     fg="#FFFFFF", font=("Arial", "12", "bold"),
-                                    width=6, command=item[2])
-            self.make_button.grid(row=item[3], column=item[4], padx=5, pady=5)                      
+                                    width=10, height=2, command=item[2])
+            self.make_button.grid(row=item[3], column=item[4], padx=5, pady=40)                      
 
             self.button_ref_list.append(self.make_button)
 
