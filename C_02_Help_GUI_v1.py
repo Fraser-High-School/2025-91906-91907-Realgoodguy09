@@ -47,3 +47,15 @@ class DisplayHelp:
 
         # if user presses cross at top, closes help and
         # 'releases' help button
+        self.help_box.protocol('WM_DELETE_WINDOW',
+                                partial(self.close_help, partner))
+        self.help_frame = Frame(self.help_box, width=300,
+                                height=200)
+        self.help_frame.grid()
+
+        self.help_heading_label = Label(self.help_frame,
+                                        text="Help / Info",
+                                        font=("Arial", "14", "bold"))
+        self.help_heading_label.grid(row=0)
+
+

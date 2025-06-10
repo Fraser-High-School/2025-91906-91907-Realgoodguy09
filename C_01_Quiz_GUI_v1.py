@@ -21,6 +21,14 @@ class quiz():
                                 )
         self.quiz_heading.grid(row=0)
 
+        instructions = ("In each round you will be given a series of answers "
+            "based on the quiz you've taken. Your goal is to get the highest score possible.")
+        self.quiz_instructions = Label(self.quiz_frame,
+            text=instructions,
+            wraplength=250, width=40,
+            justify="left")
+        self.quiz_instructions.grid(row=1)
+
         # Play, help and history buttons
         self.button_frame = Frame(self.quiz_frame)
         self.button_frame.grid(row=6)
@@ -40,7 +48,7 @@ class quiz():
                                     text=item[0], bg=item[1],
                                     fg="#FFFFFF", font=("Arial", "12", "bold"),
                                     width=10, height=2, command=item[2])
-            self.make_button.grid(row=item[3], column=item[4], padx=5, pady=40)                      
+            self.make_button.grid(row=item[3], column=item[4], padx=5, pady=20)                      
 
             self.button_ref_list.append(self.make_button)
 
