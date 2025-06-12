@@ -1,7 +1,7 @@
 from tkinter import *
 from functools import partial # To preven unwated windows
 
-class Converter:
+class Quiz:
     """
     Quiz Program
     """
