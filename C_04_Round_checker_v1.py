@@ -1,5 +1,6 @@
 from tkinter import *
-min_round = 1
+
+min_rounds = 1
 
 class quiz():
     """
@@ -44,7 +45,7 @@ class quiz():
 
         # button list (button text | bg colour | command | row | column)
         button_details_list = [
-            ["Play", "#004C99", "", 0, 1],
+            ["Play", "#004C99", lambda:self.check_rounds(min_rounds), 0, 1],
             ["Help", "#CC6600", "", 0, 2],
             ["History", "#990099", "", 0, 0]
         ]
@@ -65,7 +66,7 @@ class quiz():
         self.to_histroy_button = self.button_ref_list[2].config(state=DISABLED)
 
 
-    def Check_round(self, min_rounds):
+    def check_rounds(self, min_rounds):
         """
         Checks the selected number of rounds is a whole number and either continues to the 
         next GUI of shows custom error
@@ -78,12 +79,12 @@ class quiz():
         self.round_error.config(fg="#004C99", font=("Arial", "13", "bold"))
         self.round_entry.config(bg="#FFFFFF")
 
-        error = f"Enter a whole number equal or higher than {min_round}"
+        error = f"Enter a whole number equal or higher than {min_rounds}"
         has_errors = "no"
         # checks that the number of rounds is a whole number
         try:
             round_num = int(round_num)
-            if round_num >= min_round:
+            if round_num >= min_rounds:
                 error = ""
                 
             else:
@@ -93,10 +94,10 @@ class quiz():
             has_errors = "yes"
 
         # display error if neccessary
-        if has_error == "yes":
+        if has_errors == "yes":
             self.round_error.config(text=error, fg="#9C0000", font=("Arial", "10", "bold"))
             self.round_entry.config(bg="#F4CCCC")
-            self.temp_entry.delete(0, END)
+            self.round_entry.delete(0, END)
 
 # main routine
 
