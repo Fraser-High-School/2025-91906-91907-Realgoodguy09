@@ -59,3 +59,21 @@ class DisplayHelp:
         self.help_heading_label.grid(row=0)
 
 
+        help_text = "To use the program enter the number of rounds you wish to do " \
+                    "(Please note you will be able to quit even if you don't finish).  \n\n" \
+                    "Please note that letters and numbers below 1 will result in "
+                    "an error message.  \n\n" \
+                    "To see your " \
+                    "attempt history and export it to a text " \
+                    "file, please click 'History' button"
+        self.help_text_label = Label(self.help_frame,
+                                        text=help_text, wraplength=350,
+                                        justify="left")
+        self.help_text_label.grid(row=1, padx=10)
+
+        self.dismiss_button = Button(self.help_frame,
+                                    font=("Arial", "12", "bold"),
+                                    text="Dismiss", bg="#CC6600",
+                                    fg="#FFFFFF", 
+                                    command=partial(self.close_help, partner))
+        self.dismiss_button.grid(row=2, padx=10, pady=10)
