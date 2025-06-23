@@ -59,3 +59,5 @@ class DisplayHelp:
         self.help_heading_label.grid(row=0)
 
 
+        help_text = "To use the program simply enter the number of rounds you "  \
+                    "wish to play. You will then be redirected to"
