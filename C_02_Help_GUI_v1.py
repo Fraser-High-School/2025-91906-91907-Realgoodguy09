@@ -59,7 +59,6 @@ class DisplayHelp:
         self.help_heading_label.grid(row=0)
 
 
-<<<<<<< HEAD
         help_text = "To use the program enter the number of rounds you wish to do " \
                     "(Please note you will be able to quit even if you don't finish).  \n\n" \
                     "Please note that letters and numbers below 1 will result in "
@@ -78,7 +77,3 @@ class DisplayHelp:
                                     fg="#FFFFFF", 
                                     command=partial(self.close_help, partner))
         self.dismiss_button.grid(row=2, padx=10, pady=10)
-=======
-        help_text = "To use the program simply enter the number of rounds you "  \
-                    "wish to play. You will then be redirected to"
->>>>>>> 06d48753d6d6acb1cb36d58e8aa3e31900f21e18
