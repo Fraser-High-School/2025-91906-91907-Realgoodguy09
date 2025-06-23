@@ -5,7 +5,7 @@ class play():
     A Quiz Program
     """
 
-    def __init__():
+    def __init__(self):
 
         """
         Play game GUI
@@ -15,4 +15,6 @@ class play():
         self.play_frame.grid()
 
         self.play_heading = Label(self.play_heading,
-            text="")
+            text="Play",
+            font= ("Arial", "24", "bold"))
+        self.play_heading.grid(row=0)
