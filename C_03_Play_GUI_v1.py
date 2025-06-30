@@ -14,7 +14,4 @@ class play():
         self.play_frame = Frame(padx=30, pady=30)
         self.play_frame.grid()
 
-        self.play_heading = Label(self.play_heading,
-            text="Play",
-            font= ("Arial", "24", "bold"))
-        self.play_heading.grid(row=0)
+
