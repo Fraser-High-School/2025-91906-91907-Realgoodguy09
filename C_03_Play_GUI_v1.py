@@ -21,11 +21,11 @@ class play():
 
         # button list (Button text | bg colour | command | row | column)
         button_details_list = [
-            ["True", "#004C99", "", 0, 0],
-            ["False", "#990099", "", 0, 2],
-            ["Hint", "#CC6600", "", 2, 0],
-            ["Quit", "#990000", "", 2, 1],
-            ["Stats", "#2C9C00", "", 2, 2]
+            ["True", "#004C99", "", 1, 0],
+            ["False", "#990099", "", 1, 2],
+            ["Hint", "#CC6600", "", 3, 0],
+            ["Quit", "#990000", "", 3, 1],
+            ["Stats", "#2C9C00", "", 3, 2]
         ]
 
         # List to hold the buttons once they've been made
@@ -39,6 +39,9 @@ class play():
             self.make_button.grid(row=item[3], column=item[4], padx=5, pady=20)
 
             self.button_ref_list.append(self.make_button)
+
+        
+
 
 
 
