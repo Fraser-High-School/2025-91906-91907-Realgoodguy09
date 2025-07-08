@@ -98,7 +98,7 @@ class quiz():
             round_num = int(round_num)
             if round_num >= min_rounds:
                 error = ""
-                play(self, round_num)
+                play()
                 
                 
             else:
@@ -190,7 +190,7 @@ class play:
     A Quiz Program
     """
 
-    def __init__(self, round_num):
+    def __init__(self):
 
         """
         Play game GUI
