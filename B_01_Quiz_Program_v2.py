@@ -117,7 +117,7 @@ class quiz():
         """
         Opens Play GUI and disables or hides initial GUI
         """
-        play()
+        StartPlay()
 
 
 
@@ -185,20 +185,25 @@ class DisplayHelp:
         partner.to_help_button.config(state=NORMAL)
         self.help_box.destroy()
 
-class play:
+class StartPlay:
     """
-    A Quiz Program
+    Opens Play GUI
     """
 
-    def __init__(self):
-
-        """
-        Play game GUI
-        """
-
+    def __init__(self, partner):
+        # set up GUI box and background color
+        background = "#ffe6cc"
         self.play_box = Toplevel()
 
-        self.play_frame = Frame(padx=30, pady=30)
+        # disables Play button
+        partner.to_play_button.config(state=DISABLED)
+
+        # If user presses the cross at the top, closes Play and 
+        # 'releases' play button
+        self.play_box.protocol('WM_DELETE_WINDOW',
+                               partial(self.close_play, partner))
+        self.play_frame = Frame(self.play_box, width=300, 
+                                height=200)
         self.play_frame.grid()
 
 
@@ -211,7 +216,7 @@ class play:
             ["True", "#004C99", "", 1, 0],
             ["False", "#990099", "", 1, 2],
             ["Hint", "#CC6600", "", 3, 0],
-            ["Quit", "#990000", "", 3, 1],
+            ["Quit", "#990000", partial(self.close_play, partner), 3, 1],
             ["Stats", "#2C9C00", "", 3, 2]
         ]
 
@@ -219,13 +224,21 @@ class play:
         self.button_ref_list = []
 
         for item in button_details_list_play:
-            self.make_button_play = Button(self.button_frame_play,
+            self.make_button = Button(self.button_frame_play,
                                       text=item[0], bg=item[1],
                                       fg="#FFFFFF", font=("Arial", "12", "bold"),
                                       width=5, height=2, command=item[2])
-            self.make_button_play.grid(row=item[3], column=item[4], padx=5, pady=20)
+            self.make_button.grid(row=item[3], column=item[4], padx=5, pady=20)
 
-            self.button_ref_list.append(self.make_button_play)
+            self.button_ref_list.append(self.make_button)
+
+    def close_play(self, partner):
+        """
+        Close Play GUI (and enable help button)
+        """
+        # Put help button back to normal
+        partner.to_play_button.config(state=NORMAL)
+        self.play_box.destroy()
 
 
 
