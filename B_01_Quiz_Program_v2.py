@@ -47,7 +47,7 @@ class quiz():
 
         # button list (button text | bg colour | command | row | column)
         button_details_list = [
-            ["Play", "#004C99", self.to_play, 0, 1],
+            ["Play", "#004C99", lambda:self.check_rounds(min_rounds), 0, 1],
             ["Help", "#CC6600", self.to_help, 0, 2],
             ["History", "#990099", "", 0, 0]
         ]
@@ -67,8 +67,10 @@ class quiz():
         # retieve 'history / export' button and disable it at the start
         self.to_histroy_button = self.button_ref_list[2].config(state=DISABLED)
 
-        # retrive 'help' button so it can be disabled later
+        # retrive buttons so they can be diabled
         self.to_help_button = self.button_ref_list[1]
+        self.to_play_button = self.button_ref_list[0]
+
 
     def to_help(self):
         """
@@ -98,7 +100,7 @@ class quiz():
             round_num = int(round_num)
             if round_num >= min_rounds:
                 error = ""
-                self.to_play
+                StartPlay(self)
                 
                 
             else:
@@ -117,7 +119,7 @@ class quiz():
         """
         Opens Play GUI and disables or hides initial GUI
         """
-        StartPlay()
+        StartPlay(self)
 
 
 

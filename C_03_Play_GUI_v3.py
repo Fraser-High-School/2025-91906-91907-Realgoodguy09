@@ -1,6 +1,8 @@
 from tkinter import *
 from functools import partial # prevents unwanter windows
 
+answer = True
+
 class quiz():
     """
     A Quiz Program
@@ -58,7 +60,18 @@ class StartPlay:
                                 height=200)
         self.play_frame.grid()
 
+        play_text = "The atom is the smallest particle."
 
+        self.play_text_label = Label(self.play_frame,
+                                     text=play_text, wraplength=350,
+                                     justify="left")
+        self.play_text_label.grid(row=1, padx=10)
+
+
+        explanation = ""
+        self.answer_explantion = Label(self.play_frame, text=explanation,
+                                       fg="#9C0000")
+        self.answer_explantion.grid(row=3)
 
 
 
@@ -68,8 +81,8 @@ class StartPlay:
 
         # button list (Button text | bg colour | command | row | column)
         button_details_list_play = [
-            ["True", "#004C99", "", 1, 0],
-            ["False", "#990099", "", 1, 2],
+            ["True", "#004C99", self.answer_true, 1, 0],
+            ["False", "#990099", self.answer_false, 1, 2],
             ["Hint", "#CC6600", "", 3, 0],
             ["Quit", "#990000", partial(self.close_play, partner), 3, 1],
             ["Stats", "#2C9C00", "", 3, 2]
@@ -95,8 +108,48 @@ class StartPlay:
         partner.to_play_button.config(state=NORMAL)
         self.play_box.destroy()
 
+    def answer_true(self):
+        choice = True
+        self.check_answer(choice)
+    
 
-        
+    def answer_false(self):
+        choice = False
+        self.check_answer(choice)
+
+    def check_answer(self, choice):
+        """
+        Checks to see if the users answer is correct
+        """
+
+        self.answer_explantion.config(fg="#004C99", font=("Arial", "13", "bold"))
+
+
+        answer = True
+        explanation = ""
+
+        if choice == answer:
+            correct_answer = "yes"
+            explanation = "Correct"
+
+        elif choice != answer:
+            correct_answer = "no"
+            explanation = "Incorrect"
+
+        # Confrims if answer is correct or incorrect
+
+        if correct_answer == "yes":
+            self.answer_explantion.config(text=explanation, fg="#004C99", font=("Arial", "10", "bold"))
+
+        elif correct_answer == "no":
+            self.answer_explantion.config(text=explanation, fg="#9C0000", font=("Arial", "10", "bold"))
+                        
+
+
+
+
+
+
 
 
 
