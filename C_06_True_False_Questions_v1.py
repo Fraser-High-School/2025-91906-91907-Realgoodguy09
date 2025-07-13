@@ -1,4 +1,4 @@
-from random import *
+import random
 
 # List of True/False questions for the Quiz
 # Question list (Question | Answer | explanation)
@@ -96,5 +96,7 @@ true_false_question_list = [
     ["Minnie Mouse's real name is Minerva Mouse.", True, "True - she does have a real name!"]
     ]
 
-random_question = random.choice(true_false_question_list)
-print(random_question)
+random_selected_question = random.choice(true_false_question_list)
+print(random_selected_question)
+ran_question = random_selected_question[0]
+print(ran_question)
