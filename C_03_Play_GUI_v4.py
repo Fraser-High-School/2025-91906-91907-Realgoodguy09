@@ -2,7 +2,8 @@ from tkinter import *
 from functools import partial # prevents unwanter windows
 import random
 
-
+# List of True/False questions for the Quiz
+# Question list (Question | Answer | explanation)
 true_false_question_list = [
     ["An atom is the smallest particle.", False, "False - there are subatomic particles that are smaller"],
     ["Arachnophobia is the fear of bathing.", False, "False - Ablutophobia is the fear of bathing"],
@@ -208,9 +209,12 @@ class StartPlay:
 
         for i in range(num_round):
             ran_question = random.choice(true_false_question_list)
-            ran_question_list = []
-            ran_question_list.append(ran_question)
-            print(ran_question_list)
+            question = ran_question[0]
+            answer = ran_question[1]
+            explanation = ran_question[2]
+            true_false_question_list.remove(ran_question)
+            print(question, answer, explanation)
+            
 
 
 
