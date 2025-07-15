@@ -191,10 +191,10 @@ class StartPlay:
 
         play_text = ""
 
-        self.play_text_label = Label(self.play_frame,
+        self.play_text_question = Label(self.play_frame,
                                      text=play_text, wraplength=350,
                                      justify="left")
-        self.play_text_label.grid(row=1, padx=10)
+        self.play_text_question.grid(row=1, padx=10)
 
 
         explanation = ""
@@ -208,13 +208,23 @@ class StartPlay:
 
 
         for i in range(num_round):
+            button_press = False
             ran_question = random.choice(true_false_question_list)
             question = ran_question[0]
-            answer = ran_question[1]
-            explanation = ran_question[2]
             true_false_question_list.remove(ran_question)
-            print(question, answer, explanation)
+
+
+            self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
+
+
+
+            while button_press == True:
+                continue
+
             
+
+
+
 
 
 
@@ -229,24 +239,28 @@ class StartPlay:
 
     def answer_true(self):
         choice = True
-        return choice
+        self.check_answer(choice)
     
 
     def answer_false(self):
         choice = False
-        return choice
+        self.check_answer(choice)
 
     def check_answer(self, choice):
         """
         Checks to see if the users answer is correct
         """
 
+        
+        ran_question = random.choice(true_false_question_list)        
+        answer = ran_question[1]
+        explanation = ran_question[2]
+
 
         self.answer_explantion.config(fg="#004C99", font=("Arial", "13", "bold"))
 
 
         
-        explanation = ""
 
         if choice == answer:
             correct_answer = "yes"
@@ -263,6 +277,9 @@ class StartPlay:
 
         elif correct_answer == "no":
             self.answer_explantion.config(text=explanation, fg="#9C0000", font=("Arial", "10", "bold"))
+        
+        button_press = True
+        return button_press
     
 
 
