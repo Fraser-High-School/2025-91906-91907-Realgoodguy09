@@ -218,8 +218,7 @@ class StartPlay:
 
 
 
-            while button_press == True:
-                continue
+
 
             
 
