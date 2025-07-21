@@ -97,12 +97,18 @@ true_false_question_list = [
     ["Goofy has had several names over the years.", True, "True - among them, Goofus D. Dawg."],
     ["Minnie Mouse's real name is Minerva Mouse.", True, "True - she does have a real name!"]
     ]
+num_round=3
+rounds_played = 0
 ran_question = random.choice(true_false_question_list)
 question = ran_question[0]
 answer = ran_question[1]
-explantion = ran_question[2]
-
+explanation = ran_question[2]
 true_false_question_list.remove(ran_question)
+print(ran_question)
+print(question)
+print(answer)
+print(explanation)
+
 
 
 
@@ -163,6 +169,22 @@ class StartPlay:
         self.play_frame = Frame(self.play_box, width=300, 
                                 height=200)
         self.play_frame.grid()
+        
+
+
+        self.answer_explantion = Label(self.play_frame, text="",
+                                       fg="#9C0000")
+        self.answer_explantion.grid(row=3)
+
+
+
+        self.play_text_question = Label(self.play_frame,
+                                     text=question, wraplength=350,
+                                     justify="left")
+        self.play_text_question.grid(row=1, padx=10)
+ 
+
+        
 
 
 
@@ -174,8 +196,8 @@ class StartPlay:
 
         # button list (Button text | bg colour | command | row | column)
         button_details_list_play = [
-            ["True", "#004C99", self.answer_true, 1, 0],
-            ["False", "#990099", self.answer_false, 1, 2],
+            ["True", "#004C99", self.answer_true(answer, explanation, num_round, rounds_played, ran_question), 1, 0],
+            ["False", "#990099", self.answer_false(answer, explanation, num_round, rounds_played, ran_question), 1, 2],
             ["Hint", "#CC6600", "", 3, 0],
             ["Quit", "#990000", partial(self.close_play, partner), 3, 1],
             ["Stats", "#2C9C00", "", 3, 2]
@@ -194,36 +216,6 @@ class StartPlay:
             self.button_ref_list.append(self.make_button)
 
 
-        play_text = ""
-
-        self.play_text_question = Label(self.play_frame,
-                                     text=play_text, wraplength=350,
-                                     justify="left")
-        self.play_text_question.grid(row=1, padx=10)
-
-
-        explanation = ""
-        self.answer_explantion = Label(self.play_frame, text=explanation,
-                                       fg="#9C0000")
-        self.answer_explantion.grid(row=3)
-
-        num_round=3
-
-
-
-
-
-
-
-
-        self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
-
-            
-
-
-
-
-
 
 
     def close_play(self, partner):
@@ -236,59 +228,76 @@ class StartPlay:
 
 
 
-    def answer_true(self, answer, explanation, num_round):
+    def answer_true(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = True
-        round += 1
+        rounds_played += 1
 
 
-        
-        self.answer_explantion.config(fg="#004C99", font=("Arial", "13", "bold"))
 
 
         
 
         if choice == answer:
             correct_answer = "yes"
-            explanation = "Correct"
+
 
         elif choice != answer:
             correct_answer = "no"
-            explanation = "Incorrect"
+
 
         # Confrims if answer is correct or incorrect
 
         if correct_answer == "yes":
             self.answer_explantion.config(text=explanation, fg="#004C99", font=("Arial", "10", "bold"))
 
+            
+            # Checks to see if chosen number of rounds have been played
+            if rounds_played == num_round:
+                quit()
+            
+            else:
+                ran_question = random.choice(true_false_question_list)
+                question = ran_question[0]
+                answer = ran_question[1]
+                explanation = ran_question[2]
+                true_false_question_list.remove(ran_question)
+
+
+                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
+
         elif correct_answer == "no":
             self.answer_explantion.config(text=explanation, fg="#9C0000", font=("Arial", "10", "bold"))
-
-        if round == num_round:
-            self.end_game()
-
-        else:
-            ran_question = random.choice(true_false_question_list)
-            question = ran_question[0]
-            answer = ran_question[1]
-            explanation = ran_question[2]
-
-            true_false_question_list.remove(ran_question)
-
-
-            self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
-
-        
-        
+            
+            
+            # Checks to see if chosen number of rounds have been played
+            if rounds_played == num_round:
+                quit()
+            
+            else:
+                ran_question = random.choice(true_false_question_list)
+                question = ran_question[0]
+                answer = ran_question[1]
+                explanation = ran_question[2]
+                true_false_question_list.remove(ran_question)
 
 
-    
+                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
 
-    def answer_false(self, answer, explanation, num_round):
+
+         
+            
+
+
+
+
+
+
+    def answer_false(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = False
-        round += 1
+        rounds_played += 1
 
 
-        
+
         self.answer_explantion.config(fg="#004C99", font=("Arial", "13", "bold"))
 
 
@@ -296,33 +305,49 @@ class StartPlay:
 
         if choice == answer:
             correct_answer = "yes"
-            result = "Correct"
+
 
         elif choice != answer:
             correct_answer = "no"
-            result = "Incorrect"
+
 
         # Confrims if answer is correct or incorrect
 
         if correct_answer == "yes":
-            self.answer_explantion.config(text=f"{result}: {explanation}", fg="#004C99", font=("Arial", "10", "bold"))
+            self.answer_explantion.config(text=explanation, fg="#004C99", font=("Arial", "10", "bold"))
+
+            
+            # Checks to see if chosen number of rounds have been played
+            if rounds_played == num_round:
+                quit()
+            
+            else:
+                ran_question = random.choice(true_false_question_list)
+                question = ran_question[0]
+                answer = ran_question[1]
+                explanation = ran_question[2]
+                true_false_question_list.remove(ran_question)
+
+
+                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
 
         elif correct_answer == "no":
-            self.answer_explantion.config(text=f"{result}: {explanation}", fg="#9C0000", font=("Arial", "10", "bold"))
+            self.answer_explantion.config(text=explanation, fg="#9C0000", font=("Arial", "10", "bold"))
+            
+            
+            # Checks to see if chosen number of rounds have been played
+            if rounds_played == num_round:
+                quit()
+            
+            else:
+                ran_question = random.choice(true_false_question_list)
+                question = ran_question[0]
+                answer = ran_question[1]
+                explanation = ran_question[2]
+                true_false_question_list.remove(ran_question)
 
-        if round == num_round:
-            self.end_game()
 
-        else:
-            ran_question = random.choice(true_false_question_list)
-            question = ran_question[0]
-            answer = ran_question[1]
-            explantion = ran_question[2]
-
-            true_false_question_list.remove(ran_question)
-
-
-            self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
+                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
 
 
 
