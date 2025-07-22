@@ -158,6 +158,7 @@ class StartPlay:
         # set up GUI box and background color
         background = "#ffe6cc"
         self.play_box = Toplevel()
+        print(question)
 
         # disables Play button
         partner.to_play_button.config(state=DISABLED)
@@ -172,16 +173,16 @@ class StartPlay:
         
 
 
-        self.answer_explantion = Label(self.play_frame, text="",
-                                       fg="#9C0000")
-        self.answer_explantion.grid(row=3)
-
-
 
         self.play_text_question = Label(self.play_frame,
                                      text=question, wraplength=350,
                                      justify="left")
         self.play_text_question.grid(row=1, padx=10)
+
+        self.answer_explantion = Label(self.play_frame, text="",
+                                       fg="#9C0000")
+        self.answer_explantion.grid(row=3)
+
  
 
         
@@ -230,6 +231,7 @@ class StartPlay:
 
     def answer_true(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = True
+        correct_answer = ""
         rounds_played += 1
 
 
@@ -294,6 +296,7 @@ class StartPlay:
 
     def answer_false(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = False
+        correct_answer = ""
         rounds_played += 1
 
 
