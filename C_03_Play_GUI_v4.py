@@ -173,16 +173,16 @@ class StartPlay:
         
 
 
+        self.answer_explantion = Label(self.play_frame, text="",
+                                       fg="#9C0000")
+        self.answer_explantion.grid(row=3)
+
+
 
         self.play_text_question = Label(self.play_frame,
                                      text=question, wraplength=350,
                                      justify="left")
         self.play_text_question.grid(row=1, padx=10)
-
-        self.answer_explantion = Label(self.play_frame, text="",
-                                       fg="#9C0000")
-        self.answer_explantion.grid(row=3)
-
  
 
         
