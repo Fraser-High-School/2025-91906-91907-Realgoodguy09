@@ -231,7 +231,6 @@ class StartPlay:
     def answer_true(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = True
         correct_answer = ""
-        rounds_played += 1
 
 
 
@@ -259,7 +258,7 @@ class StartPlay:
                 quit()
             
             else:
-                self.change_question()
+                self.change_variables()
 
 
                 self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
@@ -273,7 +272,7 @@ class StartPlay:
                 quit()
             
             else:
-                self.change_question()
+                self.change_variables()
 
 
                 self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))     
@@ -290,7 +289,6 @@ class StartPlay:
     def answer_false(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = False
         correct_answer = ""
-        rounds_played += 1
 
 
 
@@ -318,7 +316,7 @@ class StartPlay:
                 quit()
             
             else:
-                self.change_question()
+                self.change_variables()
 
 
                 self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
@@ -332,21 +330,22 @@ class StartPlay:
                 quit()
             
             else:
-                self.change_question()
+                self.change_variables()
    
 
 
 
-    def change_question(self):
+    def change_variables(self):
         ran_question = random.choice(true_false_question_list)
         global question
         global answer
         global explanation
+        global rounds_played
         question = ran_question[0]
         answer = ran_question[1]
         explanation = ran_question[2]
         true_false_question_list.remove(ran_question)
-
+        rounds_played += 1
 
         self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
 
