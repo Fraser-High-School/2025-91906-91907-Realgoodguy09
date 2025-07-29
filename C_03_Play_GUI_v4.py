@@ -167,8 +167,8 @@ class StartPlay:
         # 'releases' play button
         self.play_box.protocol('WM_DELETE_WINDOW',
                                partial(self.close_play, partner))
-        self.play_frame = Frame(self.play_box, width=300, 
-                                height=200)
+        self.play_frame = Frame(self.play_box, width=500, 
+                                height=400)
         self.play_frame.grid()
         
 
@@ -228,11 +228,9 @@ class StartPlay:
 
 
 
-    def answer_true(self, num_round, ran_question):
+    def answer_true(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = True
-
         correct_answer = ""
-        global rounds_played
         rounds_played += 1
 
 
@@ -261,14 +259,7 @@ class StartPlay:
                 quit()
             
             else:
-                ran_question = random.choice(true_false_question_list)
-                global question
-                global answer
-                global explanation
-                question = ran_question[0]
-                answer = ran_question[1]
-                explanation = ran_question[2]
-                true_false_question_list.remove(ran_question)
+                self.change_question()
 
 
                 self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
@@ -282,14 +273,7 @@ class StartPlay:
                 quit()
             
             else:
-                global question
-                global answer
-                global explanation
-                ran_question = random.choice(true_false_question_list)
-                question = ran_question[0]
-                answer = ran_question[1]
-                explanation = ran_question[2]
-                true_false_question_list.remove(ran_question)
+                self.change_question()
 
 
                 self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))     
@@ -303,10 +287,9 @@ class StartPlay:
 
 
 
-    def answer_false(self, num_round, ran_question):
+    def answer_false(self, answer, explanation, num_round, rounds_played, ran_question):
         choice = False
         correct_answer = ""
-        global rounds_played
         rounds_played += 1
 
 
@@ -335,14 +318,7 @@ class StartPlay:
                 quit()
             
             else:
-                ran_question = random.choice(true_false_question_list)
-                global question
-                global answer
-                global explanation
-                question = ran_question[0]
-                answer = ran_question[1]
-                explanation = ran_question[2]
-                true_false_question_list.remove(ran_question)
+                self.change_question()
 
 
                 self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
@@ -356,21 +332,23 @@ class StartPlay:
                 quit()
             
             else:
-                global question
-                global answer
-                global explanation
-                ran_question = random.choice(true_false_question_list)
-                question = ran_question[0]
-                answer = ran_question[1]
-                explanation = ran_question[2]
-                true_false_question_list.remove(ran_question)
-
-
-                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
+                self.change_question()
+   
 
 
 
+    def change_question(self):
+        ran_question = random.choice(true_false_question_list)
+        global question
+        global answer
+        global explanation
+        question = ran_question[0]
+        answer = ran_question[1]
+        explanation = ran_question[2]
+        true_false_question_list.remove(ran_question)
 
+
+        self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
 
 
     
