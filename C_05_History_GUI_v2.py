@@ -1,6 +1,6 @@
 from tkinter import *
 from functools import partial # To prevent unwanted windows
-
+import all_constants as c
 
 class Quiz:
     """
@@ -14,7 +14,9 @@ class Quiz:
 
 
 
-        self.all_attempts_list = []
+        self.all_attempts_list = ["3 correct / 5 questions", "0 correct / 3 questions",
+                                  "10 correct / 10 questions", "2 correct / 3 questions"
+                                  ]
 
         self.quiz_frame = Frame(padx=10, pady=10)
         self.quiz_frame.grid()
@@ -33,7 +35,7 @@ class Quiz:
         Open History dialogue box and disables History button
         (So the user can't create multiple history boxes)
         """
-        HistoryExport(self)
+        HistoryExport(self, self.all_attempts_list)
 
 
 class HistoryExport:
@@ -41,11 +43,7 @@ class HistoryExport:
     Displays History box
     """
     
-    def __init__(self, partner):
-        # setup dialogue box and background color
-
-        green_back = "#D5E8D4"
-        peach_back = "#ffe6cc"
+    def __init__(self, partner, attempts):
 
         self.history_box = Toplevel()
 
@@ -60,9 +58,17 @@ class HistoryExport:
         self.history_frame = Frame(self.history_box)
         self.history_frame.grid()
 
+        # background color and text for attempt area
+        if len(attempts) <= c.MAX_ATTS:
+            att_back = "#D5E8D4"
+            att_amount = "all your"
+        else:
+            att_back = "#ffe6cc"
+            calc_amount = (f"Your recent attempts - "
+                           f"showing {c.MAX_ATTS} / {len(attempts)}")
+
         # strings for 'long' labels...
-        recent_intro_txt = ("Below are your recent attempt - showing "
-                            "3 / 3 attempts.")
+        recent_intro_txt = (f"Below {att_amount} attempts.")
         
         export_instructions_txt = ("Please push <Export> to save your attemptin a text "
                                 "file. If the file name already exist, it will be overwritten.")
@@ -73,7 +79,7 @@ class HistoryExport:
         history_labels_list = [
             ["History / Export", ("Arial", "16", "bold"), None],
             [recent_intro_txt,("Arial", "11"), None],
-            ["Attempt list", ("Arial", "14"), green_back],
+            ["Attempt list", ("Arial", "14"), att_back],
             [export_instructions_txt,("Arial", "11"), None]
         ]
 

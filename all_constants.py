@@ -1,0 +1,1 @@
+# constants used for quiz
