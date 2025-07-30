@@ -97,7 +97,7 @@ true_false_question_list = [
     ["Goofy has had several names over the years.", True, "True - among them, Goofus D. Dawg."],
     ["Minnie Mouse's real name is Minerva Mouse.", True, "True - she does have a real name!"]
     ]
-num_round=3
+num_round=2
 rounds_played = 0
 ran_question = random.choice(true_false_question_list)
 question = ran_question[0]
@@ -175,7 +175,7 @@ class StartPlay:
 
         self.answer_explantion = Label(self.play_frame, text="",
                                        fg="#9C0000")
-        self.answer_explantion.grid(row=3)
+        self.answer_explantion.grid(row=4)
 
 
         print(question+"I have no idea")
@@ -196,8 +196,8 @@ class StartPlay:
 
         # button list (Button text | bg colour | command | row | column)
         button_details_list_play = [
-            ["True", "#004C99", lambda: self.answer_true(answer, explanation, num_round, rounds_played, ran_question), 1, 0],
-            ["False", "#990099", lambda: self.answer_false(answer, explanation, num_round, rounds_played, ran_question), 1, 2],
+            ["True", "#004C99", lambda: self.answer_true(answer, explanation, num_round, rounds_played, ran_question), 0, 0],
+            ["False", "#990099", lambda: self.answer_false(answer, explanation, num_round, rounds_played, ran_question), 0, 2],
             ["Hint", "#CC6600", "", 3, 0],
             ["Quit", "#990000", partial(self.close_play, partner), 3, 1],
             ["Stats", "#2C9C00", "", 3, 2]
