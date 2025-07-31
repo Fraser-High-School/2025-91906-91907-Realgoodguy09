@@ -209,6 +209,7 @@ class StartPlay:
             ["Stats", "#2C9C00", "", 3, 2]
         ]
 
+
         # List to hold the buttons once they've been made
         self.button_ref_list = []
 
@@ -221,9 +222,11 @@ class StartPlay:
 
             self.button_ref_list.append(self.make_button)
 
+        self.to_true_button = self.button_ref_list[0]
+        self.to_false_button = self.button_ref_list[1]
 
 
-
+    # close the Play GUI
     def close_play(self, partner):
         """
         Close Play GUI (and enable help button)
@@ -231,6 +234,8 @@ class StartPlay:
         # Put help button back to normal
         partner.to_play_button.config(state=NORMAL)
         self.play_box.destroy()
+
+
 
 
 
@@ -263,7 +268,7 @@ class StartPlay:
             
             # Checks to see if chosen number of rounds have been played
             if rounds_played != num_round:
-                self.change_variables(num_round)
+                self.change_variables()
 
 
         elif correct_answer == "no":
@@ -272,15 +277,9 @@ class StartPlay:
             
             # Checks to see if chosen number of rounds have been played
             if rounds_played != num_round:
-                self.change_variables(num_round)
+                self.change_variables()
 
 
-
-
-
-
-         
-            
 
 
 
@@ -315,7 +314,7 @@ class StartPlay:
             print(score)
             # Checks to see if chosen number of rounds have been played
             if rounds_played != num_round:
-                self.change_variables(num_round)
+                self.change_variables()
 
 
         elif correct_answer == "no":
@@ -324,13 +323,11 @@ class StartPlay:
             
             # Checks to see if chosen number of rounds have been played
             if rounds_played != num_round:
-                self.change_variables(num_round)
+                self.change_variables()
             
    
 
-
-
-    def change_variables(self, num_round):
+    def change_variables(self):
         ran_question = random.choice(true_false_question_list)
         global question
         global answer
@@ -345,11 +342,18 @@ class StartPlay:
         self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
 
         if rounds_played == num_round:
-           quit()
+           self.end_round(score, num_round, partner=partial)
+
+
+    def end_round(self, partner, score, num_round):
+        self.play_text_question.config(text=f"{score} correct / {num_round}", fg="#888888", font=("Arial", "10", "bold"))
+        partner.to_true_button.config(state=DISABLED)
+        partner.to_false_button.config(state=DISABLED)
 
     
 
- #   def end_round():
+
+
 
 
 
