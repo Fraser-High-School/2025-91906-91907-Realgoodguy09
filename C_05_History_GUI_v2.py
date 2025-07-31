@@ -37,12 +37,10 @@ class Quiz:
         """
         HistoryExport(self, self.all_attempts_list)
 
-
 class HistoryExport:
     """
     Displays History box
-    """
-    
+    """  
     def __init__(self, partner, attempts):
 
         self.history_box = Toplevel()
@@ -64,22 +62,40 @@ class HistoryExport:
             att_amount = "all your"
         else:
             att_back = "#ffe6cc"
-            calc_amount = (f"Your recent attempts - "
+            att_amount = (f"Your recent attempts - "
                            f"showing {c.MAX_ATTS} / {len(attempts)}")
 
         # strings for 'long' labels...
-        recent_intro_txt = (f"Below {att_amount} attempts.")
+        recent_intro_txt = (f"Below are {att_amount} attempts.")
+        newest_first_string = ""
+        newest_first_list = list(reversed(attempts))
+
+        if len(newest_first_list) <= c.MAX_ATTS:
+
+            for item in newest_first_list[:-1]:
+                newest_first_string += item + "\n"
+
+            newest_first_string += newest_first_list[:-1]
+
+        # if we have more than five items
+        else:
+            for item in newest_first_list[:c.MAX_ATTS - 1]:
+                newest_first_string += item + "\n"
         
+            newest_first_string += newest_first_list[c.MAX_ATTS - 1]
+
+            
+        # create string from attempt list (newest attempts first)
         export_instructions_txt = ("Please push <Export> to save your attemptin a text "
                                 "file. If the file name already exist, it will be overwritten.")
         
-        attempts = ""
+
 
         # Label list (label text | format | bg)
         history_labels_list = [
             ["History / Export", ("Arial", "16", "bold"), None],
             [recent_intro_txt,("Arial", "11"), None],
-            ["Attempt list", ("Arial", "14"), att_back],
+            [newest_first_string, ("Arial", "14"), att_back],
             [export_instructions_txt,("Arial", "11"), None]
         ]
 

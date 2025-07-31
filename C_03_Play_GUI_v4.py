@@ -23,7 +23,7 @@ true_false_question_list = [
     ["A cheetah is the fastest animal on the planet.", False, "False - they're just the fastest land animal."],
     ["A dog pants its tongue because it's sweating.", False, "False - dogs sweat through their paws."],
     ["An octopus has one heart.", False, "False - it has three hearts."],
-    ["Ants can withstand up to 5,000 times their body weight.", True, "True - they may be small, but they can hold a lot."],
+    ["Ants can withstand up to 50 times their body weight.", True, "True - they may be small, but they can hold a lot."],
     ["Bats are blind.", False, "False - bats can see, they just use ultrasound to help direct them."],
     ["Dinosaurs are the biggest animals to ever live.", False, "False - it's the blue whale."],
     ["Galapagos tortoises can go up to a year without water or food.", True, "True - they also sleep a lot; up to 16 hours each day."],
@@ -97,8 +97,8 @@ true_false_question_list = [
     ["Goofy has had several names over the years.", True, "True - among them, Goofus D. Dawg."],
     ["Minnie Mouse's real name is Minerva Mouse.", True, "True - she does have a real name!"]
     ]
-num_round=3
-rounds_played = 0
+num_round = 3
+rounds_played = 1
 ran_question = random.choice(true_false_question_list)
 question = ran_question[0]
 answer = ran_question[1]
@@ -159,6 +159,7 @@ class StartPlay:
         background = "#ffe6cc"
         self.play_box = Toplevel()
         print(question)
+        print(rounds_played)
 
         # disables Play button
         partner.to_play_button.config(state=DISABLED)
@@ -254,28 +255,21 @@ class StartPlay:
 
             
             # Checks to see if chosen number of rounds have been played
-            if rounds_played == num_round:
-                quit()
-            
-            else:
+            if rounds_played != num_round:
                 self.change_variables()
 
-
-                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
 
         elif correct_answer == "no":
             self.answer_explantion.config(text=explanation, fg="#9C0000", font=("Arial", "10", "bold"))
             
             
             # Checks to see if chosen number of rounds have been played
-            if rounds_played == num_round:
-                quit()
-            
-            else:
+            if rounds_played != num_round:
                 self.change_variables()
 
 
-                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))     
+
+
 
 
          
@@ -299,8 +293,7 @@ class StartPlay:
 
         if choice == answer:
             correct_answer = "yes"
-            global score
-            score += 1
+
 
         elif choice != answer:
             correct_answer = "no"
@@ -314,13 +307,8 @@ class StartPlay:
             
             # Checks to see if chosen number of rounds have been played
             if rounds_played == num_round:
-                quit()
-            
-            else:
                 self.change_variables()
 
-
-                self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))   
 
         elif correct_answer == "no":
             self.answer_explantion.config(text=explanation, fg="#9C0000", font=("Arial", "10", "bold"))
@@ -329,17 +317,20 @@ class StartPlay:
             # Checks to see if chosen number of rounds have been played
             if rounds_played != num_round:
                 self.change_variables()
+            
+            else:
+                quit()
    
 
 
 
     def change_variables(self, num_round):
+        print(rounds_played)
         ran_question = random.choice(true_false_question_list)
         global question
         global answer
         global explanation
         global rounds_played
-
         question = ran_question[0]
         answer = ran_question[1]
         explanation = ran_question[2]
@@ -347,10 +338,9 @@ class StartPlay:
         rounds_played += 1
 
         self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
-        
 
-
-
+        if rounds_played == num_round:
+           quit()
     
 
 
