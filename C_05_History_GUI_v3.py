@@ -1,6 +1,7 @@
 from tkinter import *
 from functools import partial # To prevent unwanted windows
 import all_constants as c
+from datetime import date
 
 class Quiz:
     """
@@ -12,11 +13,14 @@ class Quiz:
         QUiz program GUI
         """
 
-
+        #self.all_attempts_list = ["3 correct / 5 questions", "0 correct / 3 questions",
+        #                          "10 correct / 10 questions", "2 correct / 3 questions",
+        #                          "4 correct / 6 questions", "8 correct / 12 questions"]
 
         self.all_attempts_list = ["3 correct / 5 questions", "0 correct / 3 questions",
                                   "10 correct / 10 questions", "2 correct / 3 questions",
-                                  "4 correct / 6 questions", "8 correct / 12 questions"]
+                                  "4 correct / 6 questions", "This is a test"]
+
 
         self.quiz_frame = Frame(padx=10, pady=10)
         self.quiz_frame.grid()
@@ -120,7 +124,7 @@ class HistoryExport:
 
         # button list(button text | bg colour | command | row | column)
         button_details_list = [
-            ["Export", "#004C99", "", 0, 0],
+            ["Export", "#004C99", lambda: self.export_data(attempts), 0, 0],
             ["Close", "#666666", partial(self.close_history, partner), 0, 1],
         ]
 
@@ -133,6 +137,38 @@ class HistoryExport:
             self.make_button.grid(row=btn[3], column=btn[4], padx=10, pady=10)
 
         
+    def export_data(self, attempts):
+
+        # **** Get current date for heading the filename ****
+        today = date.today()
+
+        # Get day, month and year as individual strings
+        day = today.strftime("%d")
+        month = today.strftime("%m")
+        year = today.strftime("%Y")
+
+        file_name = f"attempts_{year}_{month}_{day}"
+
+        # edit label so users know that their export has been done 
+        success_string = ("Export Successful!   The file is called "
+                          f"{file_name}.text")
+        self.export_filename_label.config(fg="#009900", text = success_string,
+                                          font=("Arial", "12", "bold"))
+
+        # write data to a text file
+        write_to = f"{file_name}.txt"
+
+        with open(write_to, "w") as text_file:
+
+            text_file.write("***** Attempts *****\n")
+            text_file.write(f"Generated: {day}/{month}/{year}\n\n")
+            text_file.write("Here is your attempt history (oldest to newest)...\n")
+
+            # write the item to file
+            for item in attempts:
+                text_file.write(item)
+                text_file.write("\n")
+
     def close_history(self, partner):
         """
         Closes the history dialogue box (and enableshistory button)
