@@ -342,13 +342,13 @@ class StartPlay:
         self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
 
         if rounds_played == num_round:
-           self.end_round(score, num_round, partner=partial)
+           self.end_round(score, num_round,)
 
 
-    def end_round(self, partner, score, num_round):
+    def end_round(self, score, num_round):
         self.play_text_question.config(text=f"{score} correct / {num_round}", fg="#888888", font=("Arial", "10", "bold"))
-        partner.to_true_button.config(state=DISABLED)
-        partner.to_false_button.config(state=DISABLED)
+        self.to_true_button.config(state=DISABLED)
+        self.to_false_button.config(state=DISABLED)
 
     
 
