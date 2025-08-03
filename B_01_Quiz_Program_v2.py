@@ -109,6 +109,8 @@ answer = ran_question[1]
 explanation = ran_question[2]
 true_false_question_list.remove(ran_question)
 min_rounds = 1
+max_rounds = 50
+all_attempts_list = []
 
 
 
@@ -153,14 +155,14 @@ class quiz():
         self.button_frame = Frame(self.quiz_frame)
         self.button_frame.grid(row=6)
 
-        self.all_attempts_list = []
+
 
 
         # button list (button text | bg colour | command | row | column)
         button_details_list = [
-            ["Play", "#004C99", lambda: self.check_rounds(min_rounds), 0, 1],
-            ["Help", "#CC6600", lambda: self.to_help, 0, 2],
-            ["History", "#990099", "", 0, 0]
+            ["Play", "#004C99", lambda: self.check_rounds(min_rounds, max_rounds), 0, 1],
+            ["Help", "#CC6600", self.to_help, 0, 2],
+            ["History", "#990099", self.to_history, 0, 0]
         ]
 
         # List to hold the buttons once they've been made
@@ -176,19 +178,21 @@ class quiz():
             self.button_ref_list.append(self.make_button)
 
         # retieve 'history / export' button and disable it at the start
-        self.to_histroy_button = self.button_ref_list[2]
-
-        if len(self.all_attempts_list) == 0:
-            self.to_histroy_button = self.button_ref_list[2].config(state=DISABLED)
-
-        else:
-            self.to_histroy_button = self.button_ref_list[2].config(state=NORMAL)
+        self.to_history_button = self.button_ref_list[2]
 
         # retrive 'help' button so it can be disabled later
         self.to_help_button = self.button_ref_list[1]
 
         # retrive 'play' button so it can be disabled later
         self.to_play_button = self.button_ref_list[0]
+
+
+
+
+        self.to_history_button.config(state=DISABLED)
+
+
+
 
 
 
@@ -207,12 +211,13 @@ class quiz():
         Open History dialogue box and disables History button
         (So the user can't create multiple history boxes)
         """
+        self.all_attempts_list = all_attempts_list
         HistoryExport(self, self.all_attempts_list)
 
 
 
 
-    def check_rounds(self, min_rounds):
+    def check_rounds(self, min_rounds, max_rounds):
         """
         Checks the selected number of rounds is a whole number and either continues to the 
         next GUI of shows custom error
@@ -225,12 +230,12 @@ class quiz():
         self.round_error.config(fg="#004C99", font=("Arial", "13", "bold"))
         self.round_entry.config(bg="#FFFFFF")
 
-        error = f"Enter a whole number equal or higher than {min_rounds}"
+        error = f"Enter a whole number equal or higher than {min_rounds} and no more than {max_rounds}"
         has_errors = "no"
         # checks that the number of rounds is a whole number
         try:
             round_num = int(round_num)
-            if round_num >= min_rounds:
+            if round_num >= min_rounds and round_num <= max_rounds:
                 error = ""
                 global num_round
                 num_round = round_num
@@ -259,7 +264,6 @@ class quiz():
         global score
         rounds_played = 0
         score = 0
-        print(num_round)
         StartPlay(self)
 
 
@@ -342,8 +346,7 @@ class StartPlay:
         # set up GUI box and background color
         background = "#ffe6cc"
         self.play_box = Toplevel()
-        print(question)
-        print(rounds_played)
+
 
         # disables Play button
         partner.to_play_button.config(state=DISABLED)
@@ -363,7 +366,7 @@ class StartPlay:
         self.answer_explantion.grid(row=3)
 
 
-        print(question+"I have no idea")
+
         self.play_text_question = Label(self.play_frame,
                                      text=question, wraplength=350,
                                      justify="left")
@@ -412,6 +415,11 @@ class StartPlay:
         """
         # Put help button back to normal
         partner.to_play_button.config(state=NORMAL)
+        if len(all_attempts_list) == 0:
+            partner.to_history_button.config(state=DISABLED)
+
+        else:
+            partner.to_history_button.config(state=NORMAL)
         self.play_box.destroy()
 
 
@@ -521,15 +529,17 @@ class StartPlay:
         self.play_text_question.config(text=question, fg="#004C99", font=("Arial", "10", "bold"))
 
         if rounds_played == num_round:
-           self.end_round(score, num_round,)
+           self.end_round(score, num_round)
 
 
-    def end_round(self, score, num_round,):
+    def end_round(self, score, num_round):
         self.play_text_question.config(text=f"{score} correct / {num_round} rounds", fg="#888888", font=("Arial", "10", "bold"))
         self.to_true_button.config(state=DISABLED)
         self.to_false_button.config(state=DISABLED)
-        round_result = (f"{score} correct / {num_round} rounds")
-        return round_result
+        self.round_result = (f"{score} correct / {num_round} rounds")
+        all_attempts_list.append(self.round_result)
+
+
 
 # History / Export GUI
 class HistoryExport:
@@ -539,6 +549,8 @@ class HistoryExport:
     def __init__(self, partner, attempts):
 
         self.history_box = Toplevel()
+
+
 
         # disables history button
         partner.to_history_button.config(state=DISABLED)
