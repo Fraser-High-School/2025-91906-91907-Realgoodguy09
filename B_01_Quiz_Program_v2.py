@@ -3,6 +3,7 @@ from functools import partial # prevents unwanter windows
 import random
 import all_constants as c
 from datetime import date
+import os
 
 
 # List of True/False questions for the Quiz
@@ -671,6 +672,8 @@ class HistoryExport:
             for item in attempts:
                 text_file.write(item)
                 text_file.write("\n")
+            os.startfile(write_to)
+
 
     def close_history(self, partner):
         """
